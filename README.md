@@ -1,6 +1,10 @@
 
 # Mini Proyecto: FutRedX – La Red de Fútbol de la Premier League
 
+# Proceso V1.0.0
+1. Primero creamos el modelo para la base de datos, está conformado por tres tablas: Reaccion, Usuario, Publicacion. Además agregamos las relaciones correspondientes entre las tablas. Reaccion funciona como tabla intermedia entre Publicacion y Usuario, es decir esta tabla además de tener su valor `tipo_emocion` también tiene las primary keys de la tabla Publicación y Reacción, como foreign keys. Toda esta estructura la definimos en el archivo generar_tablas.py, el cual al ser ejecutado genera la base de datos con sus relacioes y atributos correspondientes.
+2. Una vez hicimos el modelo, procedimos a insertar los datos dentro de la base de datos. primero leímos la información de los usuarios de `usuarios_red_x.csv` y poblamos la tabla de Usuarios, luego llenamos la tabla de Publicaciones, la cual está compuesta por el mensaje y el id del usuario que publicó. Por último para insertar los datos en la tabla Reaccion agregamos las foreigns keys correspondientes y el tipo de emocion. Todo esto en el archivo `generar_tablas.py`.
+
 ## Contexto
 
 Un grupo de estudiantes apasionados por el fútbol ha creado *FutRedX*, una red social ficticia dedicada exclusivamente a compartir opiniones, noticias y momentos sobre la **Premier League inglesa**. Los usuarios pueden publicar frases, comentar eventos deportivos, y reaccionar a las publicaciones de otros.
