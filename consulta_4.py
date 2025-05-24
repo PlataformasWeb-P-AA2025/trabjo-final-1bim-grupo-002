@@ -12,3 +12,5 @@ resultados = session.query(Reaccion.tipo_emocion, func.count(Reaccion.tipo_emoci
 print("Reporte de reacciones:")
 for t, c in resultados:
     print(f"- {t}: {c} veces")
+    
+# ALISrj & cbhas

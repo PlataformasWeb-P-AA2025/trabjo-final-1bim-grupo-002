@@ -21,3 +21,5 @@ if usuario:
         print(f"{nombre_usuario} no ha reaccionado en ninguna publicación.")
 else:
     print("Usuario no encontrado")
+    
+# ALISrj & cbhas

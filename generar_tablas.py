@@ -33,3 +33,5 @@ class Publicacion(Base):
 
 
 Base.metadata.create_all(engine)
+
+# ALISrj & cbhas

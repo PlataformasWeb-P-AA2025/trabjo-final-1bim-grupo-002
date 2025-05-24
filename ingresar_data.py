@@ -40,3 +40,5 @@ with open('data/usuario_publicacion_emocion.csv', newline='', encoding='utf-8') 
         session.add(reaccion)
 
 session.commit()
+
+# ALISrj & cbhas

@@ -18,3 +18,5 @@ if publicacion:
         print(f"- {r.tipo_emocion}")
 else:
     print("Publicacion no encontrada")
+    
+# ALISrj & cbhas
