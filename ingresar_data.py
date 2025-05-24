@@ -1,25 +1,14 @@
 import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-# se importa la clase(s) del
-# archivo genera_tablas
 from generar_tablas import *
-
-# se importa información del archivo configuracion
 from configuracion import cadena_base_datos
 
-# se genera enlace al gestor de base de
-# datos
-# para el ejemplo se usa la base de datos
-# sqlite
 engine = create_engine(cadena_base_datos)
-
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Leemos el txt con csv, con codificacion utf-8
-with open('DATA/usuarios_red_x.csv', newline='', encoding='utf-8') as f:
+with open('data/usuarios_red_x.csv', newline='', encoding='utf-8') as f:
     lector = csv.reader(f, delimiter=';')
     next(lector)
     datos_usuarios = list(lector)
@@ -27,7 +16,7 @@ with open('DATA/usuarios_red_x.csv', newline='', encoding='utf-8') as f:
         usuario = Usuario(nombre=u[0])
         session.add(usuario)
 
-with open('DATA/usuarios_publicaciones.csv', newline='', encoding='utf-8') as f:
+with open('data/usuarios_publicaciones.csv', newline='', encoding='utf-8') as f:
     lector = csv.reader(f, delimiter='|')
     next(lector)
     datos_usuarios_publicaciones = list(lector)
@@ -37,7 +26,7 @@ with open('DATA/usuarios_publicaciones.csv', newline='', encoding='utf-8') as f:
         publicacion = Publicacion(usuario_id=usuario.id, mensaje=d[1])
         session.add(publicacion)
 
-with open('DATA/usuario_publicacion_emocion.csv', newline='', encoding='utf-8') as f:
+with open('data/usuario_publicacion_emocion.csv', newline='', encoding='utf-8') as f:
     lector = csv.reader(f, delimiter='|')
     next(lector)
     datos_u_p_emocion = list(lector)

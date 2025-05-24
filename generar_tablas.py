@@ -2,18 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey
-
-# se importa información del archivo configuracion
 from configuracion import cadena_base_datos
 
-# se genera en enlace al gestor de base de
-# datos
-# para el ejemplo se usa la base de datos
-# sqlite
 engine = create_engine(cadena_base_datos)
-
 Base = declarative_base()
-
 
 class Reaccion(Base):
     __tablename__ = 'reaccion'
