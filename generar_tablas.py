@@ -11,7 +11,7 @@ class Reaccion(Base):
     __tablename__ = 'reaccion'
     usuario_id = Column(Integer, ForeignKey('usuario.id'), primary_key=True)
     publicacion_id = Column(Integer, ForeignKey('publicacion.id'), primary_key=True)
-    tipo_emocion = Column(String(50), nullable=False)
+    tipo_emocion = Column(String(200), nullable=False)
     publicacion = relationship("Publicacion", back_populates="usuarios")
     usuario = relationship("Usuario", back_populates="publicaciones")
 
@@ -19,7 +19,7 @@ class Reaccion(Base):
 class Usuario(Base):
     __tablename__ = 'usuario'
     id = Column(Integer, primary_key=True)
-    nombre = Column(String(50))
+    nombre = Column(String(200))
     publicaciones = relationship("Reaccion", back_populates="usuario")
 
 
@@ -27,9 +27,10 @@ class Publicacion(Base):
     __tablename__ = 'publicacion'
     id = Column(Integer, primary_key=True)
     usuario_id = Column(Integer, ForeignKey('usuario.id'))
-    mensaje = Column(String(50))
+    mensaje = Column(String(200))
 
     usuarios = relationship("Reaccion", back_populates="publicacion")
+
 
 
 Base.metadata.create_all(engine)
