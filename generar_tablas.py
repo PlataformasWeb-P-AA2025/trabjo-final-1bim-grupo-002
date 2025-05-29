@@ -21,13 +21,13 @@ class Reaccion(Base):
     usuario = relationship("Usuario", back_populates="reacciones")
 
     def __repr__(self):
-        return f"""
-Usuario= {self.usuario.nombre}
-Publicación= {self.publicacion.mensaje}
-Emoción= {self.tipo_emocion}
-______________________________________________________________________________
-"""
-
+        return (
+            f"╔═══════════════════════════════════════════════\n"
+            f"║   Usuario: {self.usuario.nombre}\n"
+            f"║   Publicación: {self.publicacion.mensaje}\n"
+            f"║   Emoción: {self.tipo_emocion}\n"
+            f"╚═══════════════════════════════════════════════"
+            )
 
 # Clase para la tabla 'usuario'
 class Usuario(Base):
@@ -42,12 +42,12 @@ class Usuario(Base):
     reacciones = relationship("Reaccion", back_populates="usuario")
 
     def __repr__(self):
-        return f"""
-Id= {self.id}
-nombre= {self.nombre}
-________________________
-"""
-
+        return (
+            f"╔════════════════════════════\n"
+            f"║   ID: {self.id}\n"
+            f"║   Nombre: {self.nombre}\n"
+            f"╚════════════════════════════"
+        )
 
 # Clase para la tabla 'publicacion'
 class Publicacion(Base):
@@ -63,13 +63,13 @@ class Publicacion(Base):
     usuarios = relationship("Reaccion", back_populates="publicacion")
 
     def __repr__(self):
-        return (f"""
-Id= {self.id}
-Usuario= {self.usuario.nombre}
-mensaje= {self.mensaje}
-______________________________________________________________________________-
-""")
-
+        return (
+            f"╔══════════════════════════════════════════════════════\n"
+            f"║   ID: {self.id}\n"
+            f"║   Usuario: {self.usuario.nombre}\n"
+            f"║   Mensaje: {self.mensaje}\n"
+            f"╚══════════════════════════════════════════════════════"
+        )
 
 # Crea las tablas en la base de datos si no existen
 Base.metadata.create_all(engine)

@@ -10,10 +10,15 @@ session = Session()
 # Mostrar en qué publicaciones reaccionó un usuario.
 nombre_usuario = input("Ingrese el nombre del usuario: ")
 
+# Consultamos las publicaciones en las que el usuario ha reaccionado
 publicaciones = session.query(Publicacion).join(Reaccion).join(Usuario).filter(Usuario.nombre == nombre_usuario).all()
 
-for publicacion in publicaciones:
-    print(publicacion)
-
+# Si hay publicaciones, las mostramos
+if publicaciones:
+    print(f"Publicaciones en las que el usuario '{nombre_usuario}' ha reaccionado:")
+    for p in publicaciones: # Iteramos sobre las publicaciones
+        print(p)
+else:
+    print(f"No se encontraron publicaciones en las que el usuario '{nombre_usuario}' haya reaccionado.")
 
 # ALISrj & cbhas
