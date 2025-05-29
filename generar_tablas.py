@@ -8,31 +8,46 @@ engine = create_engine(cadena_base_datos)
 
 Base = declarative_base()
 
+
 # Clase para la tabla 'reaccion' que une usuarios y publicaciones con una emoción
 class Reaccion(Base):
     __tablename__ = 'reaccion'
     usuario_id = Column(Integer, ForeignKey('usuario.id'), primary_key=True)  # Clave primaria y foránea
     publicacion_id = Column(Integer, ForeignKey('publicacion.id'), primary_key=True)  # Clave primaria y foránea
     tipo_emocion = Column(String(200), nullable=False)  # Tipo de emoción que puso el usuario
-    
+
     # Relaciones para acceder fácilmente desde Reaccion a Usuario y Publicacion
     publicacion = relationship("Publicacion", back_populates="usuarios")
-    usuario = relationship("Usuario", back_populates="publicaciones")
-    
+    usuario = relationship("Usuario", back_populates="reacciones")
+
     def __repr__(self):
-        return f"<Reaccion(usuario_id={self.usuario_id}, publicacion_id={self.publicacion_id}, tipo_emocion='{self.tipo_emocion}')>"
+        return f"""
+Usuario= {self.usuario.nombre}
+Publicación= {self.publicacion.mensaje}
+Emoción= {self.tipo_emocion}
+______________________________________________________________________________
+"""
+
 
 # Clase para la tabla 'usuario'
 class Usuario(Base):
     __tablename__ = 'usuario'
     id = Column(Integer, primary_key=True)  # ID único del usuario
     nombre = Column(String(200))  # Nombre del usuario
-    
+
+    # Relación con publicaciones, para saber que publicaciones creó
+    publicaciones = relationship("Publicacion", back_populates="usuario")
+
     # Relación con Reaccion para saber en qué publicaciones reaccionó
-    publicaciones = relationship("Reaccion", back_populates="usuario")
-    
+    reacciones = relationship("Reaccion", back_populates="usuario")
+
     def __repr__(self):
-        return f"<Usuario(id={self.id}, nombre='{self.nombre}')>"
+        return f"""
+Id= {self.id}
+nombre= {self.nombre}
+________________________
+"""
+
 
 # Clase para la tabla 'publicacion'
 class Publicacion(Base):
@@ -40,12 +55,21 @@ class Publicacion(Base):
     id = Column(Integer, primary_key=True)  # ID único de la publicación
     usuario_id = Column(Integer, ForeignKey('usuario.id'))  # El usuario que publicó
     mensaje = Column(String(200))  # El contenido de la publicación
-    
+
+    # Relación para saber que usuario creó la publicación
+    usuario = relationship("Usuario", back_populates="publicaciones")
+
     # Relación con Reaccion para saber quiénes reaccionaron
     usuarios = relationship("Reaccion", back_populates="publicacion")
-    
+
     def __repr__(self):
-        return f"<Publicacion(id={self.id}, usuario_id={self.usuario_id}, mensaje='{self.mensaje}')>"
+        return (f"""
+Id= {self.id}
+Usuario= {self.usuario.nombre}
+mensaje= {self.mensaje}
+______________________________________________________________________________-
+""")
+
 
 # Crea las tablas en la base de datos si no existen
 Base.metadata.create_all(engine)

@@ -10,23 +10,11 @@ session = Session()
 # Pedimos el nombre del usuario por consola
 nombre_usuario = input("Ingrese el nombre del usuario: ")
 
-# Buscamos al usuario en la base de datos
-usuario = session.query(Usuario).filter_by(nombre=nombre_usuario).first()
+publicaciones = session.query(Publicacion).join(Usuario).filter(Usuario.nombre == nombre_usuario).all()
 
-# Si el usuario existe, buscamos sus publicaciones
-if usuario:
-    publicaciones = session.query(Publicacion).filter_by(usuario_id=usuario.id).all() # Obtenemos todas las publicaciones del usuario
-    
-    # Si el usuario tiene publicaciones, las mostramos
-    if publicaciones:
-        print(f"\nPublicaciones de {usuario.nombre.title()}:")
-        for p in publicaciones: # Iteramos sobre las publicaciones
-            print(f"- {p.mensaje}")
-    # Si el usuario no tiene publicaciones, mostramos un mensaje
-    else:
-        print("El usuario no tiene publicaciones registradas.")
-# Si el usuario no existe, mostramos un mensaje
-else:
-    print("Usuario no encontrado.")
+if publicaciones:
+    for p in publicaciones:
+        print(p)
+
 
 # ALISrj & cbhas
