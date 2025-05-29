@@ -10,10 +10,14 @@ session = Session()
 # Pedimos la publicación por consola
 mensaje_publicacion = input("Ingrese el mensaje de la publicacion: ")
 
+# Consultamos las reacciones a la publicación que coincida con el mensaje
 reacciones = session.query(Reaccion).join(Publicacion).filter(Publicacion.mensaje == mensaje_publicacion).all()
 
+# Si hay reacciones, las mostramos
 if reacciones:
-    for r in reacciones:
+    for r in reacciones: # Iteramos sobre las reacciones
         print(r)
-
+# Si no hay reacciones, informamos al usuario
+else:
+    print(f"No se encontraron reacciones para la publicación '{mensaje_publicacion}'.")
 # ALISrj & cbhas
