@@ -8,6 +8,8 @@ engine = create_engine(cadena_base_datos)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+# Obtenemos todas las reacciones, navegamos hasta la tabla de Usuario, mediante un JOIN, para poder filtrar por los nombres
+# de los usuarios que no empiecen por vocal, y por los tipo de emociones específicos
 reacciones = (session.query(Reaccion)
               .join(Usuario)
               .filter(
@@ -27,6 +29,7 @@ reacciones = (session.query(Reaccion)
 
 ).all())
 
+# Imprimos las reacciones
 for r in reacciones:
     print(r)
 
